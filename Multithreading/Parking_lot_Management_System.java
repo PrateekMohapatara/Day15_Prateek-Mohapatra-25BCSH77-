@@ -64,3 +64,50 @@ Main Method
 
 
 */
+package day15_progs;
+import java.util.*;
+class parking_Slot {
+    int slots = 3;
+
+    synchronized void availability() {
+        if (slots > 0) {
+            System.out.println(Thread.currentThread().getName()
+                    + " Parked");
+            System.out.println("Available Slots: " + (--slots));
+        } else {
+            System.out.println("No Parking Available for "
+                    + Thread.currentThread().getName());
+        }
+    }
+}
+class cars extends Thread{
+	parking_Slot parking_Slot;
+	cars(parking_Slot parking_Slot ,String name){
+		super(name);
+		this.parking_Slot=parking_Slot;
+	}
+	public void run() {
+		parking_Slot.availability();
+	}
+}
+public class Parking_lot_Management_System {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		parking_Slot parking_Slot = new parking_Slot();
+		cars c1 = new cars(parking_Slot, "Car 1");
+		cars c2 = new cars(parking_Slot, "Car 2");
+		cars c3 = new cars(parking_Slot, "Car 3");
+		cars c4 = new cars(parking_Slot, "Car 4");
+		cars c5 = new cars(parking_Slot, "Car 5");
+		cars c6 = new cars(parking_Slot, "Car 6");
+		
+		c1.start();
+		c2.start();
+		c3.start();
+		c4.start();
+		c5.start();
+		c6.start();
+	}
+
+}
