@@ -79,3 +79,50 @@ Possible Output
 
     Thread3 Booking Failed
 */
+package day15_progs;
+import java.util.*;
+
+class theater {
+    int seats = 5;
+
+    synchronized void counter() {
+        if (seats > 0) {
+            System.out.println(Thread.currentThread().getName() + " Booking Successful. Remaining Seats: " + (--seats));
+        } else {
+            System.out.println(Thread.currentThread().getName()+ " Booking Failed");
+        }
+    }
+}
+class BookingThread extends Thread{
+	theater theater;
+	BookingThread(theater theater){
+		this.theater=theater;
+	}
+	public void run()	{
+		theater.counter();
+	}
+}
+public class TicketBookingSystem {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		theater forBooking =new theater();
+		BookingThread p1 =new BookingThread(forBooking);
+		BookingThread p2 =new BookingThread(forBooking);
+		BookingThread p3 =new BookingThread(forBooking);
+		BookingThread p4 =new BookingThread(forBooking);
+		BookingThread p5 =new BookingThread(forBooking);
+		BookingThread p6 =new BookingThread(forBooking);
+		
+		p1.start();
+		p2.start();
+		p3.start();
+		p4.start();
+		p5.start();
+		p6.start();
+	
+		
+	}
+
+}
